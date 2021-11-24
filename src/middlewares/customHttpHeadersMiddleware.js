@@ -15,6 +15,9 @@ module.exports = (req, res, next) => {
     try {
       setupHttpHeaders(req.headers[config.get('commands:httpHeaders:header')], res);
       setupHttpHeaders(req.query[config.get('commands:httpHeaders:query')], res);
+      if (process.env.ADDITIONAL_HEADERS!='') {
+        setupHttpHeaders(process.env.ADDITIONAL_HEADERS, res);
+      }
     } finally {
       next();
     }
